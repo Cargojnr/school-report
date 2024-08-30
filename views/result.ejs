@@ -1,0 +1,395 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/styles/style.css">
+    <title>Document</title>
+</head>
+
+<body>
+    <header>
+        <div class="container">
+            <div class="header">
+                <h1 id="logo">Our <span>School</span></h1>
+                <!-- <ul id="navbar">
+                    <li class="nav"><a href="/admin/home" class="navlink">Home</a></li>
+                </ul> -->
+            </div>
+        </div>
+    </header>
+
+    <main>
+        <div class="container">
+            <form id="admin-nav">
+                <input type="submit" value="New report" formaction="/admin/home">
+                <input type="submit" class="current" value="Students Data" formaction="/student-data">
+            </form>
+            <% if (locals.studentData) { %>
+                <div class="report-card">
+                    <div class="student-info">
+                        <label for="name">Name of Student:</label>
+                        <input type="text" class="uppercase" name="stdName" value="<%= studentData.name %>">
+                        <label for="roll-no">No. on Roll:</label>
+                        <input type="text" id="roll-no" name="rollNo" value="<%= studentData.roll_no %>">
+                    </div>
+                    <div class="term-info">
+                        <label for="attendance">Attendance:</label>
+                        <input type="text" id="attendance" name="attendance" value="<%= studentData.attendance %>">
+                    </div>
+                    <div class="term-info">
+                        <label for="class">Class:</label>
+                        <select id="class" name="class">
+                            <option value="">
+                                <%= studentData.class %>
+                            </option>
+                            <option value="KG1">KG1</option>
+                            <option value="KG2">KG2</option>
+                            <option value="PRIMARY 1">PRIMARY 1</option>
+                            <option value="PRIMARY 2">PRIMARY 2</option>
+                            <option value="PRIMARY 3">PRIMARY 3</option>
+                            <option value="PRIMARY 4">PRIMARY 4</option>
+                            <option value="PRIMARY 5">PRIMARY 5</option>
+                            <option value="PRIMARY 6">PRIMARY 6</option>
+                            <option value="JHS 1">JHS 1</option>
+                            <option value="JHS 2">JHS 2</option>
+                            <option value="JHS 3">JHS 3</option>
+                        </select>
+                        <label for="term">Term:</label>
+                        <select id="term" name="currentTerm">
+                            <option value="">
+                                <%= studentData.current_term %>
+                            </option>
+                            <option value="one">ONE</option>
+                            <option value="two">TWO</option>
+                            <option value="three">THREE</option>
+                        </select>
+                        <label for="ending">Ending:</label>
+                        <input type="date" id="ending" name="termEnding" value="<%= studentData.term_ending %>">
+                    </div>
+
+                    <div class="next-term-begins">
+                        <label for="next-term-begins">Next Term Begins:</label>
+                        <input type="date" id="next-term-begins" name="nextTerm" value="<%= studentData.next_term %>">
+                        <label for="report-date">Report Date:</label>
+                        <input type="date" id="report-date" name="reportDate" value="<%= studentData.report_date %>">
+                    </div>
+
+                    <% if (locals.subjects) { %>
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>SUBJECT</th>
+                                    <th>CLASS SCORE (50%)</th>
+                                    <th>EXAMS SCORE (50%)</th>
+                                    <th>TOTAL SCORE</th>
+                                    <th>POSITION IN CLASS</th>
+                                    <th>GRADE</th>
+                                    <th>REMARKS</th>
+                                    <!-- <th>TOTAL SCORE (100%)</th> -->
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td class="uppercase">
+                                        &nbsp;
+                                        <%= subjects[0].id%>.
+                                            <%= subjects[0].subject %>
+                                    </td>
+                                    <!-- <td><input type="number" name="subjects[0].subject"></td> -->
+                                    <input type="hidden" name="subjects[0][subject_id]" value="<%= subjects[0].id %>">
+                                    <td><input type="number" name="subjects[0][classScore]"
+                                            value="<%= subjects[0].class_score %>">
+                                    </td>
+                                    <td><input type="text" name="subjects[0][examsScore]"
+                                            value="<%= subjects[0].exams_score %>">
+                                    </td>
+                                    <td><input type="text"
+                                            value="<%= subjects[0].class_score + subjects[0].exams_score %>">
+                                    </td>
+                                    <td><input type="text" name="subjects[0][position]"
+                                            value="<%= subjects[0].position %>">
+                                    </td>
+                                    <td><input type="text" name="subjects[0][grade]" value="<%= subjects[0].grade %>">
+                                    </td>
+                                    <td><input type="text" name="subjects[0][remarks]"
+                                            value="<%= subjects[0].remarks %>">
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="uppercase">
+                                        &nbsp;
+                                        <%= subjects[1].id%>.
+                                            <%= subjects[1].subject %>
+                                    </td>
+                                    <!-- <td><input type="number" name="subjects[0].subject"></td> -->
+                                    <input type="hidden" name="subjects[1][subject_id]" value="<%= subjects[1].id %>">
+                                    <td><input type="number" name="subjects[1][classScore]"
+                                            value="<%= subjects[1].class_score %>">
+                                    </td>
+                                    <td><input type="text" name="subjects[1][examsScore]"
+                                            value="<%= subjects[1].exams_score %>">
+                                    </td>
+                                    <td><input type="text"
+                                            value="<%= subjects[1].class_score + subjects[1].exams_score %>">
+                                    </td>
+                                    <td><input type="text" name="subjects[1][position]"
+                                            value="<%= subjects[1].position %>">
+                                    </td>
+                                    <td><input type="text" name="subjects[1][grade]" value="<%= subjects[1].grade %>">
+                                    </td>
+                                    <td><input type="text" name="subjects[1][remarks]"
+                                            value="<%= subjects[1].remarks %>">
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="uppercase">
+                                        &nbsp;
+                                        <%= subjects[2].id%>.
+                                            <%= subjects[2].subject %>
+                                    </td>
+                                    <!-- <td><input type="number" name="subjects[0].subject"></td> -->
+                                    <input type="hidden" name="subjects[2][subject_id]" value="<%= subjects[2].id %>">
+                                    <td><input type="number" name="subjects[2][classScore]"
+                                            value="<%= subjects[2].class_score %>">
+                                    </td>
+                                    <td><input type="text" name="subjects[2][examsScore]"
+                                            value="<%= subjects[2].exams_score %>">
+                                    </td>
+                                    <td><input type="text"
+                                            value="<%= subjects[2].class_score + subjects[2].exams_score %>">
+                                    </td>
+                                    <td><input type="text" name="subjects[2][position]"
+                                            value="<%= subjects[2].position %>">
+                                    </td>
+                                    <td><input type="text" name="subjects[2][grade]" value="<%= subjects[2].grade %>">
+                                    </td>
+                                    <td><input type="text" name="subjects[2][remarks]"
+                                            value="<%= subjects[2].remarks %>">
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="uppercase">
+                                        &nbsp;
+                                        <%= subjects[3].id%>.
+                                            <%= subjects[3].subject %>
+                                    </td>
+                                    <!-- <td><input type="number" name="subjects[0].subject"></td> -->
+                                    <input type="hidden" name="subjects[3][subject_id]" value="<%= subjects[3].id %>">
+                                    <td><input type="number" name="subjects[3][classScore]"
+                                            value="<%= subjects[3].class_score %>">
+                                    </td>
+                                    <td><input type="text" name="subjects[3][examsScore]"
+                                            value="<%= subjects[3].exams_score %>">
+                                    </td>
+                                    <td><input type="text"
+                                            value="<%= subjects[3].class_score + subjects[3].exams_score %>">
+                                    </td>
+                                    <td><input type="text" name="subjects[3][position]"
+                                            value="<%= subjects[3].position %>">
+                                    </td>
+                                    <td><input type="text" name="subjects[3][grade]" value="<%= subjects[3].grade %>">
+                                    </td>
+                                    <td><input type="text" name="subjects[3][remarks]"
+                                            value="<%= subjects[3].remarks %>">
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="uppercase">
+                                        &nbsp;
+                                        <%= subjects[4].id%>.
+                                            <%= subjects[4].subject %>
+                                    </td>
+                                    <!-- <td><input type="number" name="subjects[0].subject"></td> -->
+                                    <input type="hidden" name="subjects[4][subject_id]" value="<%= subjects[4].id %>">
+                                    <td><input type="number" name="subjects[4][classScore]"
+                                            value="<%= subjects[4].class_score %>">
+                                    </td>
+                                    <td><input type="text" name="subjects[4][examsScore]"
+                                            value="<%= subjects[4].exams_score %>">
+                                    </td>
+                                    <td><input type="text"
+                                            value="<%= subjects[4].class_score + subjects[4].exams_score %>">
+                                    </td>
+                                    <td><input type="text" name="subjects[4][position]"
+                                            value="<%= subjects[4].position %>">
+                                    </td>
+                                    <td><input type="text" name="subjects[4][grade]" value="<%= subjects[4].grade %>">
+                                    </td>
+                                    <td><input type="text" name="subjects[4][remarks]"
+                                            value="<%= subjects[4].remarks %>">
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="uppercase">
+                                        &nbsp;
+                                        <%= subjects[5].id%>.
+                                            <%= subjects[5].subject %>
+                                    </td>
+                                    <!-- <td><input type="number" name="subjects[0].subject"></td> -->
+                                    <input type="hidden" name="subjects[5][subject_id]" value="<%= subjects[5].id %>">
+                                    <td><input type="number" name="subjects[5][classScore]"
+                                            value="<%= subjects[5].class_score %>">
+                                    </td>
+                                    <td><input type="text" name="subjects[5][examsScore]"
+                                            value="<%= subjects[5].exams_score %>">
+                                    </td>
+                                    <td><input type="text"
+                                            value="<%= subjects[5].class_score + subjects[5].exams_score %>">
+                                    </td>
+                                    <td><input type="text" name="subjects[5][position]"
+                                            value="<%= subjects[5].position %>">
+                                    </td>
+                                    <td><input type="text" name="subjects[5][grade]" value="<%= subjects[5].grade %>">
+                                    </td>
+                                    <td><input type="text" name="subjects[5][remarks]"
+                                            value="<%= subjects[5].remarks %>">
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="uppercase">
+                                        &nbsp;
+                                        <%= subjects[6].id %>.
+                                            <%= subjects[6].subject %>
+                                    </td>
+                                    <!-- <td><input type="number" name="subjects[0].subject"></td> -->
+                                    <input type="hidden" name="subjects[6][subject_id]" value="<%= subjects[6].id %>">
+                                    <td><input type="number" name="subjects[6][classScore]"
+                                            value="<%= subjects[6].class_score %>">
+                                    </td>
+                                    <td><input type="text" name="subjects[6][examsScore]"
+                                            value="<%= subjects[6].exams_score %>">
+                                    </td>
+                                    <td><input type="text"
+                                            value="<%= subjects[6].class_score + subjects[6].exams_score %>">
+                                    </td>
+                                    <td><input type="text" name="subjects[6][position]"
+                                            value="<%= subjects[6].position %>">
+                                    </td>
+                                    <td><input type="text" name="subjects[6][grade]" value="<%= subjects[6].grade %>">
+                                    </td>
+                                    <td><input type="text" name="subjects[6][remarks]"
+                                            value="<%= subjects[6].remarks %>">
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="uppercase">
+                                        &nbsp;
+                                        <%= subjects[7].id%>.
+                                            <%= subjects[7].subject %>
+                                    </td>
+                                    <!-- <td><input type="number" name="subjects[0].subject"></td> -->
+                                    <input type="hidden" name="subjects[7][subject_id]" value="<%= subjects[7].id %>">
+                                    <td><input type="number" name="subjects[7][classScore]"
+                                            value="<%= subjects[7].class_score %>">
+                                    </td>
+                                    <td><input type="text" name="subjects[7][examsScore]"
+                                            value="<%= subjects[7].exams_score %>">
+                                    </td>
+                                    <td><input type="text"
+                                            value="<%= subjects[7].class_score + subjects[7].exams_score %>">
+                                    </td>
+                                    <td><input type="text" name="subjects[7][position]"
+                                            value="<%= subjects[7].position %>">
+                                    </td>
+                                    <td><input type="text" name="subjects[7][grade]" value="<%= subjects[7].grade %>">
+                                    </td>
+                                    <td><input type="text" name="subjects[7][remarks]"
+                                            value="<%= subjects[7].remarks %>">
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="uppercase">
+                                        &nbsp;
+                                        <%= subjects[8].id %>.
+                                            <%= subjects[8].subject %>
+                                    </td>
+                                    <!-- <td><input type="number" name="subjects[0].subject"></td> -->
+                                    <input type="hidden" name="subjects[8][subject_id]" value="<%= subjects[8].id %>">
+                                    <td><input type="number" name="subjects[8][classScore]"
+                                            value="<%= subjects[8].class_score %>">
+                                    </td>
+                                    <td><input type="text" name="subjects[8][examsScore]"
+                                            value="<%= subjects[8].exams_score %>">
+                                    </td>
+                                    <td><input type="text"
+                                            value="<%= subjects[8].class_score + subjects[8].exams_score %>">
+                                    </td>
+                                    <td><input type="text" name="subjects[8][position]"
+                                            value="<%= subjects[8].position %>">
+                                    </td>
+                                    <td><input type="text" name="subjects[8][grade]" value="<%= subjects[8].grade %>">
+                                    </td>
+                                    <td><input type="text" name="subjects[8][remarks]"
+                                            value="<%= subjects[8].remarks %>">
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="uppercase">
+                                        &nbsp;
+                                        <%= subjects[9].id%>.
+                                            <%= subjects[9].subject %>
+                                    </td>
+                                    <!-- <td><input type="number" name="subjects[0].subject"></td> -->
+                                    <input type="hidden" name="subjects[9][subject_id]" value="<%= subjects[9].id %>">
+                                    <td><input type="number" name="subjects[9][classScore]"
+                                            value="<%= subjects[9].class_score %>">
+                                    </td>
+                                    <td><input type="text" name="subjects[9][examsScore]"
+                                            value="<%= subjects[9].exams_score %>">
+                                    </td>
+                                    <td><input type="text"
+                                            value="<%= subjects[9].class_score + subjects[9].exams_score %>">
+                                    </td>
+                                    <td><input type="text" name="subjects[9][position]"
+                                            value="<%= subjects[9].position %>">
+                                    </td>
+                                    <td><input type="text" name="subjects[9][grade]" value="<%= subjects[9].grade %>">
+                                    </td>
+                                    <td><input type="text" name="subjects[9][remarks]"
+                                            value="<%= subjects[9].remarks %>">
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="uppercase">
+                                        &nbsp;
+                                        <%= subjects[10].id%>.
+                                            <%= subjects[10].subject %>
+                                    </td>
+                                    <!-- <td><input type="number" name="subjects[0].subject"></td> -->
+                                    <input type="hidden" name="subjects[10][subject_id]" value="<%= subjects[10].id %>">
+                                    <td><input type="number" name="subjects[10][classScore]"
+                                            value="<%= subjects[10].class_score %>">
+                                    </td>
+                                    <td><input type="text" name="subjects[10][examsScore]"
+                                            value="<%= subjects[10].exams_score %>">
+                                    </td>
+                                    <td><input type="text" value="<%= subjects[10].total_score %>">
+                                    </td>
+                                    <td><input type="text"
+                                            value="<%= subjects[10].class_score + subjects[10].exams_score %>">
+                                    </td>
+                                    <td><input type="text" name="subjects[10][grade]" value="<%= subjects[10].grade %>">
+                                    </td>
+                                    <td><input type="text" name="subjects[10][remarks]"
+                                            value="<%= subjects[10].remarks %>">
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        <% } %>
+                </div>
+                <form method="post" class="update">
+                    <input type="hidden" name="id" value="<%= studentData.id %>">
+                    <input type="submit" value="Edit" formaction="/edit">
+                    <input type="submit" value="Delete" class="delete" formaction="/delete">
+                </form>
+                <% } %>
+        </div>
+    </main>
+
+    <!-- <script src="/js/app.js"></script> -->
+</body>
+
+</html>
